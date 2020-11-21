@@ -39,7 +39,6 @@ public class Fermat extends Objective
    {
       return new Data(3*this.ndigits,0.5);
    }
-
    @Override
    public double value(Data D)
    {
