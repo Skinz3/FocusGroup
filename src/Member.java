@@ -21,6 +21,11 @@ public class Member
 	{
 		return null;
 	}
+
+	public void setIC(double ic) 
+	{
+		this.impactCoefficient = ic;
+	}
 	
 	
 	

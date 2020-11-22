@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class FocusGroup extends binMeta
 {
@@ -38,7 +39,7 @@ public class FocusGroup extends binMeta
 		
 		facilitator = new Facilitator(objective);
 		
-		observer = new Observer();
+		observer = new Observer(this);
 	}
 	
 	@Override
@@ -57,7 +58,7 @@ public class FocusGroup extends binMeta
 	
 	private Boolean terminationCriterion()
 	{
-		return false;
+		return false; // ??
 	}
 	
 	/*
@@ -66,7 +67,6 @@ public class FocusGroup extends binMeta
 	 */
 	private void internalOptimize(int k)
 	{
-		
 		for (int i = 0;i < members.size();i++)
 		{
 			/*
@@ -91,6 +91,10 @@ public class FocusGroup extends binMeta
 			facilitator.validate(solution);
 			
 		}
+	}
+	public List<Member> getMembers()
+	{
+		return members;
 	}
 
 }
