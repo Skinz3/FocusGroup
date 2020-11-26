@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class FocusGroup extends binMeta
 {
@@ -33,7 +34,7 @@ public class FocusGroup extends binMeta
 		
 		for (int i = 0;i < MemberCount;i++)
 		{
-			Member member = new Member(1d,this);
+			Member member = new Member(new Data(1),this);
 			members.add(member);
 		}
 		
@@ -67,30 +68,70 @@ public class FocusGroup extends binMeta
 	 */
 	private void internalOptimize(int k)
 	{
+	
+		
 		for (int i = 0;i < members.size();i++)
 		{
-			/*
-			 *  Retreive the ith member.
-			 */
 			Member current = members.get(i); 
-			/*
-			 *  Generate the solution of the ith member
-			 */
-			Data solution = current.generateSolution();  
-			/*
-			 *  Hestimate the quality of the given solution  (fitness function)
-			 */
-			double value = objective.value(solution); 
-			/*
-			 *  Apply impact limits
-			 */
-			observer.step(current,solution,value);
-			/*
-			 * Apply limits on current solution by facilitator based on the predefined framework
-			 */
-			facilitator.validate(solution);
+
+			computeSolutionsFitness(current);
+		   
+			
 			
 		}
+	}
+	private Data computeMemberImpact(Member current)
+	{
+		return null;
+	}
+	private void computeSolutionsFitness(Member current)
+	{	
+		Random R = new Random();
+	
+		for (int y = 0;y < members.size();y++)
+		{
+			 Member member = members.get(y);
+			 	
+		    if (member != current)
+		    {
+		    	Data bestSolution = member.bestSolution;
+		    	  
+		    	/*
+		    	 *  le calcul de PBI^k_j - PI^k_i peut se faire en calculant la distance de Hamming entre
+		    	 *   les deux solutions (faire une différence bit par bit n'a pas trop de sens);
+		    	 */
+		    	int h = bestSolution.hammingDistanceTo(current.currentSolution); 
+		    	
+		    	/*
+		    	 * la partie Rnd x H se réduit à sélectionner une valeur entière de façon aléatoire
+		    	 *  entre 1 et H (ou 0 si H est 0);
+		    	 */
+		    	int hStar = h > 0 ? 1 + R.nextInt(h) : 0;
+		    
+		    	Data memberImpact = computeMemberImpact(member);
+		    	
+		    	int n = hStar;
+		    	
+		    	Data result = new Data(0);
+		    	
+		    	while (n > 0)
+		    	{
+		    		if (memberImpact.getCurrentBit() == 1 && R.nextBoolean())
+		    		{
+		    			//result.setBit(memberImpact.getBitIndex(),1);
+		    			n--;
+		    		}
+		    		else
+		    		{
+		    		//	result.setBit(memberImpact.getBitIndex(),0);
+		    		}
+		    		
+		    		memberImpact.moveToNextBit();
+		    		
+		    	}
+		    	
+		    }
+		 }
 	}
 	public List<Member> getMembers()
 	{

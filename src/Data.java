@@ -328,6 +328,7 @@ public class Data implements Comparable<Data>
       return (b >> (7 - j)) & 1;
    }
 
+
    // Gives the specified bit
    // (private method, it doesnt verify if the bit index is correct)
    private int getBit(int k)
@@ -388,7 +389,7 @@ public class Data implements Comparable<Data>
    {
       return this.current > 0;
    }
-
+   
    // Moves to previous bit
    // (moves pointer to the end if it does not exist)
    public void moveToPrevBit()
@@ -406,7 +407,11 @@ public class Data implements Comparable<Data>
       this.moveToPrevBit();
       return this.getCurrentBit();
    }
-
+   
+   public int getBitIndex()
+   {
+	   return current;
+   }
    // Computes the Hamming distance between this Data object, and the Data object D
    // (the pointers of the two Data objects are not modified)
    public int hammingDistanceTo(Data D)

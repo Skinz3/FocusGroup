@@ -11,7 +11,7 @@ public class Observer
 	{
 		for (Member member : focusGroup.getMembers())
 		{
-			member.setIC(current.getCIndex() * member.getCIndex());
+			//member.setIC(current.() * member.getCIndex());
 		}
 		/* Modify current impact coefficient */
 	}

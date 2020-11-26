@@ -46,15 +46,16 @@ public class RandomWalk extends binMeta
       // main loop
       while (System.currentTimeMillis() - startime < this.maxTime)
       {
-         // the random walker can walk in a neighbourhood of D
+         // the random walker can walk in a neighborhood of D
          // (Hamming distance is randomly selected among 1, 2 and 3)
          int h = 1 + R.nextInt(3);
 
-         // generating a new solution in the neighbour of D with Hamming distance h
+         // generating a new solution in the neighbor of D with Hamming distance h
          Data newD = D.randomSelectInNeighbour(h);
 
          // evaluating the quality of the generated solution
          double value = obj.value(newD);
+         
          if (this.objValue > value)
          {
             this.objValue = value;
@@ -79,7 +80,7 @@ public class RandomWalk extends binMeta
       System.out.println(rw);
       System.out.println("starting point : " + rw.getSolution());
       System.out.println("optimizing ...");
-      rw.optimize();
+    //  rw.optimize();
       System.out.println(rw);
       System.out.println("solution : " + rw.getSolution());
       System.out.println();

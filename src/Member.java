@@ -1,31 +1,22 @@
 
 public class Member 
 {
-	private Data currentSolution;
+	public Data currentSolution;
+	
+	public Data bestSolution;
 	
 	private FocusGroup group;
 	
-	private double impactCoefficient; // IC
+	public Data impact; 
 	
-	public Member(double initialCoeff,FocusGroup group)
+	public Member(Data impact,FocusGroup group)
 	{
-		this.impactCoefficient = initialCoeff;
+		this.impact = impact;
 		this.group = group;
 	}
-	
-	public double getCIndex()
-	{
-		return impactCoefficient;
-	}
-	public Data generateSolution() // other parameters !
-	{
-		return null;
-	}
 
-	public void setIC(double ic) 
-	{
-		this.impactCoefficient = ic;
-	}
+
+	
 	
 	
 	
