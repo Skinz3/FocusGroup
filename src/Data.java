@@ -327,7 +327,7 @@ public class Data implements Comparable<Data>
       byte b = (byte) this.data.get(i);
       return (b >> (7 - j)) & 1;
    }
-
+   
 
    // Gives the specified bit
    // (private method, it doesnt verify if the bit index is correct)
@@ -342,6 +342,10 @@ public class Data implements Comparable<Data>
    public int getCurrentBit()
    {
       return this.getBit(this.current);
+   }
+   public int getCurrentPosition()
+   {
+	   return current;
    }
 
    // Flips the specified bit
@@ -411,6 +415,41 @@ public class Data implements Comparable<Data>
    public int getBitIndex()
    {
 	   return current;
+   }
+   public Data xor(Data other)
+   {
+	   String result = "";
+	   
+	   while (this.hasNextBit() && other.hasNextBit())
+	   {
+		   this.moveToNextBit();
+		   other.moveToNextBit();
+		   
+		   int bit = this.getCurrentBit() ^ other.getCurrentBit(); 
+		   
+		   result += Integer.toString(bit);
+	   }
+	   
+	   int value = binaryToInteger(result);
+	 
+	   return new Data(value);
+   }
+   private int binaryToInteger(String n)
+   {
+	   String num = n;
+       int dec_value = 0;
+    
+       // Initializing base value to 1, i.e 2^0
+       int base = 1;
+    
+       int len = num.length();
+       for (int i = len - 1; i >= 0; i--) {
+           if (num.charAt(i) == '1')
+               dec_value += base;
+           base = base * 2;
+       }
+    
+       return dec_value;
    }
    // Computes the Hamming distance between this Data object, and the Data object D
    // (the pointers of the two Data objects are not modified)
@@ -513,7 +552,7 @@ public class Data implements Comparable<Data>
    {
       try
       {
-         if (this.numberOfBits() >= 32) throw new Exception("Impossible to convert in integer: too many bits");
+         if (this.numberOfBits() >	32) throw new Exception("Impossible to convert in integer: too many bits");
       }
       catch (Exception e)
       {
@@ -541,7 +580,7 @@ public class Data implements Comparable<Data>
    {
       try
       {
-         if (this.numberOfBits() >= 64) throw new Exception("Impossible to convert in long integer: too many bits");
+         if (this.numberOfBits() > 64) throw new Exception("Impossible to convert in long integer: too many bits");
       }
       catch (Exception e)
       {
